@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NxWelcomeComponent } from './nx-welcome.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   standalone: true,
-  imports: [NxWelcomeComponent, RouterModule],
+  imports: [CommonModule, RouterModule],
   selector: 'cat-root',
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  template: ` <router-outlet><router-outlet></router-outlet></router-outlet>`,
+  styles: [``],
 })
-export class AppComponent {
-  title = 'cat';
-}
+export class AppComponent {}
