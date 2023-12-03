@@ -5,11 +5,22 @@ services:
     ports:
       - "${DB_PORT}:5432"
     environment:
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: db
+      POSTGRES_USER: postgres
     volumes:
-      - cat_data:/var/lib/postgresql/data
-
+        - local_pgdata:/var/lib/postgresql/data
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    restart: always
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: aaa@aaa.aaa
+      PGADMIN_DEFAULT_PASSWORD: aaaaaa
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
 volumes:
-  cat_data:
+  local_pgdata:
+  pgadmin-data:
