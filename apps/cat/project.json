@@ -1,0 +1,84 @@
+{
+  "name": "cat",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "cat",
+  "sourceRoot": "apps/cat/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/cat",
+        "index": "apps/cat/src/index.html",
+        "browser": "apps/cat/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/cat/tsconfig.app.json",
+        "assets": ["apps/cat/src/favicon.ico", "apps/cat/src/assets"],
+        "styles": ["apps/cat/src/styles.css"],
+        "scripts": [],
+        "server": "apps/cat/src/main.server.ts",
+        "prerender": true,
+        "ssr": {
+          "entry": "apps/cat/server.ts"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "cat:build:production"
+        },
+        "development": {
+          "buildTarget": "cat:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "cat:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/cat/**/*.ts", "apps/cat/**/*.html"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/cat/jest.config.ts"
+      }
+    }
+  }
+}
