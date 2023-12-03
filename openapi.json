@@ -1,0 +1,356 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/cats": {
+      "get": {
+        "operationId": "CatsController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Get all data successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CatEntity"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "cats"
+        ]
+      },
+      "post": {
+        "operationId": "CatsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCatDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The record has been successfully created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CatEntity"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden."
+          }
+        },
+        "tags": [
+          "cats"
+        ]
+      }
+    },
+    "/cats/{id}": {
+      "get": {
+        "operationId": "CatsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "The ID of the task",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved task by ID successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CatEntity"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No task found for ID"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "tags": [
+          "cats"
+        ]
+      },
+      "patch": {
+        "operationId": "CatsController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "The ID of the task",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCatDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update data successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CatEntity"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "cats"
+        ]
+      },
+      "delete": {
+        "operationId": "CatsController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "The ID of the task",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The record has been successfully deleted."
+          }
+        },
+        "tags": [
+          "cats"
+        ]
+      }
+    },
+    "/adoption": {
+      "post": {
+        "operationId": "AdoptionController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAdoptionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The record has been successfully created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdoptionEntity"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden."
+          }
+        },
+        "tags": [
+          "adoption"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Cats",
+    "description": "The cats API description",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "cats",
+      "description": ""
+    }
+  ],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "CatEntity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "birth": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "avatar": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "birth",
+          "description",
+          "location",
+          "avatar"
+        ]
+      },
+      "CreateCatDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "birth": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "avatar": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "name",
+          "birth",
+          "description",
+          "location",
+          "avatar"
+        ]
+      },
+      "UpdateCatDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "birth": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "avatar": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "CreateAdoptionDto": {
+        "type": "object",
+        "properties": {
+          "adoptorName": {
+            "type": "string"
+          },
+          "adoptorLocation": {
+            "type": "string"
+          },
+          "adoptorPhone": {
+            "type": "string"
+          },
+          "adoptorEmail": {
+            "type": "string"
+          },
+          "catId": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "adoptorName",
+          "adoptorLocation",
+          "adoptorPhone",
+          "adoptorEmail",
+          "catId"
+        ]
+      },
+      "AdoptionEntity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "adoptorName": {
+            "type": "string"
+          },
+          "adoptorLocation": {
+            "type": "string"
+          },
+          "adoptorPhone": {
+            "type": "string"
+          },
+          "adoptor_email": {
+            "type": "string"
+          },
+          "createTime": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "adoptorName",
+          "adoptorLocation",
+          "adoptorPhone",
+          "adoptor_email",
+          "createTime"
+        ]
+      }
+    }
+  }
+}
