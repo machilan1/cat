@@ -3,7 +3,8 @@
   "paths": {
     "/cats": {
       "get": {
-        "operationId": "CatsController_findAll",
+        "operationId": "getAllCats",
+        "summary": "",
         "parameters": [],
         "responses": {
           "200": {

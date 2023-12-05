@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule, RouterModule],
   selector: 'cat-root',
-  template: ` <router-outlet><router-outlet></router-outlet></router-outlet>`,
+  template: ` <router-outlet></router-outlet>`,
   styles: [``],
 })
 export class AppComponent {}

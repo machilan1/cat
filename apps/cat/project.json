@@ -18,11 +18,11 @@
         "assets": ["apps/cat/src/favicon.ico", "apps/cat/src/assets"],
         "styles": ["apps/cat/src/styles.css"],
         "scripts": [],
-        "server": "apps/cat/src/main.server.ts",
-        "prerender": true,
-        "ssr": {
-          "entry": "apps/cat/server.ts"
-        }
+        // "server": "apps/cat/src/main.server.ts",
+        // "prerender": true,
+        // "ssr": {
+        //   "entry": "apps/cat/server.ts"
+        // }
       },
       "configurations": {
         "production": {

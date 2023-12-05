@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import { injectQuery } from '@ngneat/query';
-import { provideHttpClient } from '@angular/common/http';
+import { AdoptionService } from '@cat/shared';
 
 @Injectable({ providedIn: 'root' })
-export class AdoptionService {
-  #http = provideHttpClient();
+export class AdoptionStateService extends AdoptionService {
   #query = injectQuery();
 
   // Todo create adoption request
 
-  /**
-   *     sendAdotionRequest( createAdoptionDto : CreateAdoptionDto) : AdoptionEntity{
-   *    return this.#http.post(API_URL,PcreateAdoptionDto)
-   * }
-   *  */
+  // createAdoption(createAadoptionDto: CreateAdoptionDto) {
+
+  //   return this.#query({
+  //     queryKey:['adoption'] as const,
+  //     queryFn:()=>this.adoptionControllerCreate({ body: createAadoptionDto })
+  //   })
+
+  // }
 }

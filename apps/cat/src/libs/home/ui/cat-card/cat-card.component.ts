@@ -10,8 +10,7 @@ import {
 import { ImageComponent } from '../../../shared/ui/image/image.component';
 import { ButtonComponent } from '../../../shared/ui/button.component';
 import { RouterModule } from '@angular/router';
-import { CatEntity } from '../../../adoption/data-access/models/cat.entity';
-import { CAT_PLACEHOLDER } from '../../../adoption/data-access/constants/cat-placeholder';
+import { CatEntity } from '@cat/shared';
 
 @Component({
   selector: 'cat-card',
@@ -38,7 +37,7 @@ import { CAT_PLACEHOLDER } from '../../../adoption/data-access/constants/cat-pla
         <cat-image></cat-image>
       </div>
       <div hlmCardFooter class="flex justify-end">
-        <a [routerLink]="">
+        <a [routerLink]="'/cat/' + cat.id">
           <cat-button>了解更多</cat-button>
         </a>
       </div>
@@ -47,5 +46,5 @@ import { CAT_PLACEHOLDER } from '../../../adoption/data-access/constants/cat-pla
 })
 export class CatCardComponent {
   // Todo CatEntity
-  @Input() cat: CatEntity = CAT_PLACEHOLDER;
+  @Input() cat!: CatEntity;
 }

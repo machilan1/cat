@@ -10,14 +10,12 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": [
-      "es2020",
-      "dom"
-    ],
+    "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@cat/shared": ["libs/shared/src/index.ts"],
       "@spartan-ng/ui-accordion-helm": [
         "apps/cat/src/libs/spartan/ui-accordion-helm/src/index.ts"
       ],
@@ -47,6 +45,9 @@
       ],
       "@spartan-ng/ui-dialog-helm": [
         "apps/cat/src/libs/spartan/ui-dialog-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-hovercard-helm": [
+        "apps/cat/src/libs/spartan/ui-hovercard-helm/src/index.ts"
       ],
       "@spartan-ng/ui-icon-helm": [
         "apps/cat/src/libs/spartan/ui-icon-helm/src/index.ts"
@@ -87,6 +88,9 @@
       "@spartan-ng/ui-switch-helm": [
         "apps/cat/src/libs/spartan/ui-switch-helm/src/index.ts"
       ],
+      "@spartan-ng/ui-table-helm": [
+        "apps/cat/src/libs/spartan/ui-table-helm/src/index.ts"
+      ],
       "@spartan-ng/ui-tabs-helm": [
         "apps/cat/src/libs/spartan/ui-tabs-helm/src/index.ts"
       ],
@@ -95,17 +99,8 @@
       ],
       "@spartan-ng/ui-typography-helm": [
         "apps/cat/src/libs/spartan/ui-typography-helm/src/index.ts"
-      ],
-      "@spartan-ng/ui-table-helm": [
-        "apps/cat/src/libs/spartan/ui-table-helm/src/index.ts"
-      ],
-      "@spartan-ng/ui-hovercard-helm": [
-        "apps/cat/src/libs/spartan/ui-hovercard-helm/src/index.ts"
       ]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }

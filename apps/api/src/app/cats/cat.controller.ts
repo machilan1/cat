@@ -15,7 +15,9 @@ import {
   ApiInternalServerErrorResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
+  ApiOperation,
   ApiParam,
+  ApiProperty,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -31,6 +33,7 @@ export class CatsController {
     description: 'Get all data successfully',
     type: [CatEntity],
   })
+  @ApiOperation({ operationId: 'getAllCats' })
   findAll() {
     return this.catService.findAll();
   }
