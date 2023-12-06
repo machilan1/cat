@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
+  ViewChild,
   inject,
   signal,
 } from '@angular/core';
@@ -27,6 +28,10 @@ import { CreateAdoptionDialogComponent } from './create-adoption-dialog/create-a
 import { DropdownComponent } from './dropdown-menu/dropdown-menu.component';
 import { BrnMenuTriggerDirective } from '@spartan-ng/ui-menu-brain';
 import { MenuStack } from '@angular/cdk/menu';
+import { CatStateService } from '../../adoption/data-access/services/cat-state.service';
+import { BrnDialogComponent } from '@spartan-ng/ui-dialog-brain';
+import { DialogComponent } from '../../shared/ui/dialog/dialog.component';
+import { EditCatDialogComponent } from './edit-cat-dialog/edit-cat-component';
 
 @Component({
   standalone: true,
@@ -49,6 +54,9 @@ import { MenuStack } from '@angular/cdk/menu';
     CreateAdoptionDialogComponent,
     DropdownComponent,
     BrnMenuTriggerDirective,
+    BrnDialogComponent,
+    DialogComponent,
+    EditCatDialogComponent,
   ],
 
   selector: 'cat-detail-card',
@@ -63,8 +71,8 @@ import { MenuStack } from '@angular/cdk/menu';
               <p hlmCardDescription>生日 : {{ cat.birth }}</p>
             </div>
             <cat-dropdown
-              (delete)="delete('' + cat.id)"
-              (edit)="edit('' + cat.id)"
+              (delete)="delete(+cat.id)"
+              (edit)="edit()"
             ></cat-dropdown>
           </div>
         </div>
@@ -85,26 +93,30 @@ import { MenuStack } from '@angular/cdk/menu';
           }
         </div>
       </section>
+      <!-- Todo remove asd -->
+      <cat-dialog #editDialog [hideBtn]="true">
+        <cat-edit-dialog [cat]="cat"></cat-edit-dialog>
+      </cat-dialog>
     } @else {
       No cat found
     }
   `,
-  styles: [
-    `
-      form > input {
-        margin-bottom: 1rem;
-      }
-    `,
-  ],
+  styles: [``],
 })
 export class CatDetailComponent {
+  #catStateService = inject(CatStateService);
+
   @Input({ required: true }) cat!: CatWithAdoption;
 
-  delete(catId: string) {
-    alert('Delete');
+  @ViewChild('editDialog') dialog!: DialogComponent;
+
+  delete(catId: number) {
+    if (confirm(`確定把${this.cat.name}從布告欄中移除?`)) {
+      this.#catStateService.deleteOne(catId);
+    }
   }
 
-  edit(catId: string) {
-    alert('edit');
+  edit() {
+    this.dialog.open();
   }
 }

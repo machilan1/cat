@@ -13,14 +13,17 @@ import { QueryObserverResult } from '@ngneat/query';
 import { JsonPipe } from '@angular/common';
 import { CatWithAdoption } from '../../shared/data-access/models/cat-entity';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { RouterModule } from '@angular/router';
 
 @Component({
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CatDetailComponent, JsonPipe, HlmButtonDirective],
+  imports: [CatDetailComponent, JsonPipe, HlmButtonDirective, RouterModule],
   template: `
     <div class="h-16">
-      <button variant="link" hlmBtn>回首頁</button>
+      <a routerLink="/">
+        <button variant="link" hlmBtn>回首頁</button>
+      </a>
     </div>
     <div class="h-screen flex justify-center ">
       @if (result(); as res) {

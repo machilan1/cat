@@ -1,5 +1,10 @@
 import { Injectable, inject } from '@angular/core';
-import { CatsService, CreateCatDto } from '@cat/shared';
+import {
+  CatEntity,
+  CatsService,
+  CreateCatDto,
+  UpdateCatDto,
+} from '@cat/shared';
 import { injectMutation, injectQuery, injectQueryClient } from '@ngneat/query';
 import { Observable } from 'rxjs';
 import { CatWithAdoption } from '../../../shared/data-access/models/cat-entity';
@@ -49,7 +54,6 @@ export class CatStateService {
     }).mutateAsync(createCatDto);
   }
 
-  // Todo remove c
   deleteOne(catId: number) {
     return this.#mutate({
       mutationFn: ({ id }: { id: string }) =>
@@ -66,5 +70,23 @@ export class CatStateService {
         console.log({ err });
       },
     }).mutateAsync({ id: '' + catId });
+  }
+
+  updateOne(catId: number, patchLoad: UpdateCatDto) {
+    return this.#mutate({
+      mutationFn: (value: { catId: number; patchLoad: UpdateCatDto }) =>
+        this.#catService.catsControllerUpdate({
+          body: value.patchLoad,
+          id: value.catId.toString(),
+        }),
+      onSuccess: (res) => {
+        const old = this.#qc.getQueryData(['cats', catId]) as CatWithAdoption;
+        this.#qc.setQueryData(['cats', '' + catId], () => ({ ...old, ...res }));
+        console.log(res);
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    }).mutateAsync({ catId, patchLoad });
   }
 }

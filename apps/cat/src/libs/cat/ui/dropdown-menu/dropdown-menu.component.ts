@@ -22,6 +22,7 @@ import {
 } from '@spartan-ng/ui-menu-helm';
 import { HlmAlertDialogContentDirective } from '@spartan-ng/ui-alertdialog-helm';
 import { BrnAlertDialogTriggerDirective } from '@spartan-ng/ui-alertdialog-brain';
+import { DialogComponent } from '../../../shared/ui/dialog/dialog.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -39,6 +40,7 @@ import { BrnAlertDialogTriggerDirective } from '@spartan-ng/ui-alertdialog-brain
     HlmSubMenuDirective,
     BrnAlertDialogTriggerDirective,
     HlmAlertDialogContentDirective,
+    DialogComponent,
   ],
   selector: 'cat-dropdown',
   standalone: true,
@@ -56,18 +58,13 @@ import { BrnAlertDialogTriggerDirective } from '@spartan-ng/ui-alertdialog-brain
     <ng-template #menu>
       <div hlm brnMenu>
         <div brnMenuGroup>
-          <button brnAlertDialogTrigger (click)="onDelete()" hlm brnMenuItem>
-            刪除
-          </button>
+          <button (click)="onDelete()" hlm brnMenuItem>移除刊登</button>
         </div>
         <hlm-menu-separator />
         <div brnMenuGroup>
           <button (click)="onEdit()" hlm brnMenuItem>編輯</button>
         </div>
       </div>
-    </ng-template>
-    <ng-template #asd>
-      <div hlmAlertDialogContent>asfs</div>
     </ng-template>
   `,
 })

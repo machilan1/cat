@@ -30,7 +30,7 @@ import { DialogComponent } from '../../../shared/ui/dialog/dialog.component';
     DialogComponent,
   ],
   template: `
-    <cat-dialog btnText="新增毛毛">
+    <cat-dialog btnText="刊登新毛毛">
       <form class="w-md" [formGroup]="form" (submit)="submit()">
         <div>
           <label>貓咪名稱</label>
@@ -78,14 +78,7 @@ import { DialogComponent } from '../../../shared/ui/dialog/dialog.component';
       </form>
     </cat-dialog>
   `,
-  styles: [
-    `
-      form :is(input, textarea, select) {
-        width: 100%;
-        margin-bottom: 1rem;
-      }
-    `,
-  ],
+  styles: [``],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateCatDialogComponent {

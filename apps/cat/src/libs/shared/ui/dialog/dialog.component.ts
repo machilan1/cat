@@ -35,7 +35,11 @@ import { HlmIconComponent } from '@spartan-ng/ui-icon-helm';
   template: `
     <brn-dialog closeDelay="100">
       <brn-dialog-overlay hlm />
-      <button brnDialogTrigger hlmBtn>{{ btnText }}</button>
+      @if (!hideBtn) {
+        <button brnDialogTrigger hlmBtn>
+          {{ btnText }}
+        </button>
+      }
 
       <div hlmDialogContent *brnDialogContent="let ctx">
         <ng-content></ng-content>
@@ -58,11 +62,16 @@ import { HlmIconComponent } from '@spartan-ng/ui-icon-helm';
   `,
 })
 export class DialogComponent {
-  @Input({ required: true }) btnText = 'Button';
+  @Input() btnText = 'Button';
+  @Input() hideBtn = false;
 
   @ViewChild(BrnDialogComponent) dialog!: BrnDialogComponent;
 
   close() {
     this.dialog.close();
+  }
+
+  open() {
+    this.dialog.open();
   }
 }
