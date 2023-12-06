@@ -91,6 +91,9 @@ export class CreateAdoptionDialogComponent {
   #fb = inject(NonNullableFormBuilder);
   #adoptionStateService = inject(AdoptionStateService);
 
+  #createAdoption = this.#adoptionStateService.createAdoption();
+  createAdoptionResult = this.#createAdoption.result;
+
   LOCATIONS = LOCATIONS;
 
   @Input({ required: true }) cat!: CatWithAdoption;
@@ -106,7 +109,7 @@ export class CreateAdoptionDialogComponent {
     email: ['', [Validators.required, Validators.email]],
   });
 
-  submit() {
+  async submit() {
     if (this.form.invalid) {
       return;
     }
@@ -121,7 +124,7 @@ export class CreateAdoptionDialogComponent {
       catId: this.cat.id,
     };
 
-    this.#adoptionStateService.createAdoption(payload);
+    await this.#createAdoption.mutateAsync({ ...payload });
 
     this.form.reset();
     this.dialog.close();

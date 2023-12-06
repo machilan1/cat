@@ -58,10 +58,11 @@ import { EditCatDialogComponent } from './edit-cat-dialog/edit-cat-component';
   selector: 'cat-detail-card',
   template: `
     @if (cat) {
+      <div>{{ deleteRes().status }}</div>
       <section
         hlmCard
         class="max-w-[66vw] min-w-[50vw] transition-opacity duration-300"
-        [ngClass]="{ 'opacity-50': deleting() }"
+        [ngClass]="{ 'opacity-50': deleteRes().status === 'pending' }"
       >
         <div hlmCardHeader>
           <div class="flex justify-between">
@@ -110,11 +111,11 @@ export class CatDetailComponent {
 
   @ViewChild('editDialog') dialog!: DialogComponent;
 
-  readonly deleting = signal(false);
+  deleteRes = this.#catStateService.deleteOne().result;
 
   async delete(catId: number) {
     if (confirm(`確定把${this.cat.name}從布告欄中移除?`)) {
-      await this.#catStateService.deleteOne(catId);
+      await this.#catStateService.deleteOne().mutateAsync({ id: catId });
     }
   }
   edit() {

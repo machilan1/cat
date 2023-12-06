@@ -77,6 +77,8 @@ export class EditCatDialogComponent implements AfterViewInit {
 
   LOCATIONS = LOCATIONS;
 
+  updateOne = this.#carStateService.updateOne();
+
   @Input({ required: true }) cat!: CatWithAdoption;
   @Output() edited = new EventEmitter();
 
@@ -92,7 +94,10 @@ export class EditCatDialogComponent implements AfterViewInit {
       return;
     }
 
-    await this.#carStateService.updateOne(this.cat.id, this.form.getRawValue());
+    this.updateOne.mutateAsync({
+      catId: this.cat.id,
+      patchLoad: this.form.getRawValue(),
+    });
     this.edited.emit('');
   }
 

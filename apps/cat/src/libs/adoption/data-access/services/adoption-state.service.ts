@@ -8,7 +8,7 @@ export class AdoptionStateService extends AdoptionService {
   #mutation = injectMutation();
   #qc = injectQueryClient();
 
-  createAdoption(createAdoptionDto: CreateAdoptionDto) {
+  createAdoption() {
     return this.#mutation({
       mutationFn: (data: CreateAdoptionDto) => {
         console.log(data);
@@ -29,6 +29,6 @@ export class AdoptionStateService extends AdoptionService {
           return old ? data : old;
         });
       },
-    }).mutateAsync(createAdoptionDto);
+    });
   }
 }

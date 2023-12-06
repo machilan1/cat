@@ -84,10 +84,13 @@ import { DialogComponent } from '../../../shared/ui/dialog/dialog.component';
 export class CreateCatDialogComponent {
   #fb = inject(NonNullableFormBuilder);
   #catStateService = inject(CatStateService);
+  #createOne = this.#catStateService.createOne();
 
   @Output() sub = new EventEmitter();
 
   @ViewChild(DialogComponent) dialog!: DialogComponent;
+
+  createOneResult = this.#createOne.result;
 
   LOCATIONS = LOCATIONS;
 
@@ -102,17 +105,15 @@ export class CreateCatDialogComponent {
     if (this.form.invalid) {
       return;
     }
-    // send request to create cat
 
     const payload: CreateCatDto = {
       avatar: ['https://genrandom.com/api/cat'],
       ...this.form.getRawValue(),
     };
 
-    await this.#catStateService.createOne(payload);
+    await this.#createOne.mutateAsync({ ...payload });
 
     this.form.reset();
-
     this.dialog.close();
     this.sub.emit(this.form.getRawValue());
   }

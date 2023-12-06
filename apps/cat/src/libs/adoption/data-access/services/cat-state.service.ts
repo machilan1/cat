@@ -31,7 +31,7 @@ export class CatStateService {
     });
   }
 
-  createOne(createCatDto: CreateCatDto) {
+  createOne() {
     return this.#mutate({
       mutationFn: (data: CreateCatDto) =>
         this.#catService.catsControllerCreate({ body: data }),
@@ -47,21 +47,21 @@ export class CatStateService {
       onError: (error) => {
         console.log(error);
       },
-    }).mutateAsync(createCatDto);
+    });
   }
 
-  deleteOne(catId: number) {
+  deleteOne() {
     return this.#mutate({
-      mutationFn: ({ id }: { id: string }) =>
-        this.#catService.catsControllerRemove({ id }),
-      onSuccess: (data) => {
-        this.#qc.setQueryData(['cats', catId], null);
+      mutationFn: ({ id }: { id: number }) =>
+        this.#catService.catsControllerRemove({ id: '' + id }),
+      onSuccess: (data, variables) => {
+        this.#qc.setQueryData(['cats', variables.id], null);
         this.#qc.removeQueries({
-          queryKey: ['cats', catId],
+          queryKey: ['cats', variables.id],
         });
 
         const old = this.#qc.getQueryData(['cats']) as CatWithAdoption[];
-        const index = old.findIndex((cat) => cat.id === catId);
+        const index = old.findIndex((cat) => cat.id === variables.id);
         old.splice(index, 1);
         this.#qc.setQueryData(['cats'], old);
         this.#router.navigate(['/']);
@@ -69,25 +69,30 @@ export class CatStateService {
       onError: (err) => {
         console.log({ err });
       },
-    }).mutateAsync({ id: '' + catId });
-    // }).mutateAsync({ id: '' + catId });
+    });
   }
 
-  updateOne(catId: number, patchLoad: UpdateCatDto) {
+  updateOne() {
     return this.#mutate({
       mutationFn: (value: { catId: number; patchLoad: UpdateCatDto }) =>
         this.#catService.catsControllerUpdate({
           body: value.patchLoad,
           id: value.catId.toString(),
         }),
-      onSuccess: (res) => {
-        const old = this.#qc.getQueryData(['cats', catId]) as CatWithAdoption;
-        this.#qc.setQueryData(['cats', '' + catId], () => ({ ...old, ...res }));
+      onSuccess: (res, variables) => {
+        const old = this.#qc.getQueryData([
+          'cats',
+          variables.catId,
+        ]) as CatWithAdoption;
+        this.#qc.setQueryData(['cats', '' + variables.catId], () => ({
+          ...old,
+          ...res,
+        }));
         console.log(res);
       },
       onError: (error) => {
         console.log(error);
       },
-    }).mutateAsync({ catId, patchLoad });
+    });
   }
 }
