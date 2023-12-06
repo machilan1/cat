@@ -229,6 +229,9 @@
             "items": {
               "type": "string"
             }
+          },
+          "createdAt": {
+            "type": "string"
           }
         },
         "required": [
@@ -237,7 +240,8 @@
           "birth",
           "description",
           "location",
-          "avatar"
+          "avatar",
+          "createdAt"
         ]
       },
       "CreateCatDto": {

@@ -5,6 +5,7 @@ import {
   PrimaryGeneratedColumn,
   OneToOne,
   JoinColumn,
+  CreateDateColumn,
 } from 'typeorm';
 import { AdoptionEntity } from '../../adoption/adoption.entity';
 
@@ -34,8 +35,11 @@ export class CatEntity {
   @Column('json', { nullable: true })
   avatar: string[];
 
-  // Todo find a way to anotate this in swagger
-  @Column({ nullable: true ,select:false})
+  @ApiProperty({ type: String })
+  @CreateDateColumn({ type: 'timestamptz' })
+  createdAt: Date;
+
+  @Column({ nullable: true, select: false })
   adoptionId: number;
   @OneToOne(() => AdoptionEntity)
   @JoinColumn()

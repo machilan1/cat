@@ -15,6 +15,7 @@ export class CatService {
   findAll() {
     return this.catRepository.find({
       relations: ['adoption'],
+      order: { createdAt: { direction: 'ASC' } },
     });
   }
 

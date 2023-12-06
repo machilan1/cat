@@ -107,8 +107,6 @@ export class CreateAdoptionDialogComponent {
   });
 
   submit() {
-    console.log(this.cat);
-    alert('submit');
     if (this.form.invalid) {
       return;
     }

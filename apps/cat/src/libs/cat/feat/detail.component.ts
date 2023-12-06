@@ -45,7 +45,6 @@ export class DetailComponent {
   #catStateService = inject(CatStateService);
   #injector = inject(Injector);
   @Input() set catId(value: string) {
-    // Todo set viewing cat
     runInInjectionContext(this.#injector, () => {
       this.result = this.#catStateService.findOne(value).result;
     });

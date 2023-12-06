@@ -3,7 +3,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
+  Output,
   inject,
+  EventEmitter,
 } from '@angular/core';
 import {
   NonNullableFormBuilder,
@@ -13,7 +15,6 @@ import {
 import { LOCATIONS } from '../../../shared/data-access/constants/counties';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
-import { injectQueryClient } from '@ngneat/query';
 import { CatWithAdoption } from '../../../shared/data-access/models/cat-entity';
 import { CatStateService } from '../../../adoption/data-access/services/cat-state.service';
 
@@ -77,6 +78,7 @@ export class EditCatDialogComponent implements AfterViewInit {
   LOCATIONS = LOCATIONS;
 
   @Input({ required: true }) cat!: CatWithAdoption;
+  @Output() edited = new EventEmitter();
 
   form = this.#fb.group({
     name: ['', Validators.required],
@@ -91,6 +93,7 @@ export class EditCatDialogComponent implements AfterViewInit {
     }
 
     await this.#carStateService.updateOne(this.cat.id, this.form.getRawValue());
+    this.edited.emit('');
   }
 
   ngAfterViewInit() {

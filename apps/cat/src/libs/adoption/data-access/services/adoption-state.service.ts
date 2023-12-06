@@ -8,8 +8,6 @@ export class AdoptionStateService extends AdoptionService {
   #mutation = injectMutation();
   #qc = injectQueryClient();
 
-  // Todo create adoption request
-
   createAdoption(createAdoptionDto: CreateAdoptionDto) {
     return this.#mutation({
       mutationFn: (data: CreateAdoptionDto) => {

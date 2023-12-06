@@ -1,10 +1,5 @@
-import { Injectable, inject } from '@angular/core';
-import {
-  CatEntity,
-  CatsService,
-  CreateCatDto,
-  UpdateCatDto,
-} from '@cat/shared';
+import { Injectable, inject, signal } from '@angular/core';
+import { CatsService, CreateCatDto, UpdateCatDto } from '@cat/shared';
 import { injectMutation, injectQuery, injectQueryClient } from '@ngneat/query';
 import { Observable } from 'rxjs';
 import { CatWithAdoption } from '../../../shared/data-access/models/cat-entity';
@@ -17,6 +12,7 @@ export class CatStateService {
   #qc = injectQueryClient();
   #mutate = injectMutation();
   #router = inject(Router);
+
   findAll() {
     return this.#query({
       queryKey: ['cats'] as const,
@@ -64,12 +60,17 @@ export class CatStateService {
           queryKey: ['cats', catId],
         });
 
+        const old = this.#qc.getQueryData(['cats']) as CatWithAdoption[];
+        const index = old.findIndex((cat) => cat.id === catId);
+        old.splice(index, 1);
+        this.#qc.setQueryData(['cats'], old);
         this.#router.navigate(['/']);
       },
       onError: (err) => {
         console.log({ err });
       },
     }).mutateAsync({ id: '' + catId });
+    // }).mutateAsync({ id: '' + catId });
   }
 
   updateOne(catId: number, patchLoad: UpdateCatDto) {

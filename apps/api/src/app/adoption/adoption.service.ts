@@ -27,12 +27,11 @@ export class AdoptionService {
     // 更新貓咪狀態
 
     try {
-      // Toso remove
-      const abc = await this.catRepository.save({
+      const newData = await this.catRepository.save({
         id: createAdoptionDto.catId,
         adoptionId: adoption.id,
       });
-      console.log(abc);
+      console.log(newData);
     } catch (error) {
       console.log(error);
     }
