@@ -3,6 +3,7 @@ import { CreateAdoptionDto } from './dto/create-adoption.dto';
 import { AdoptionService } from './adoption.service';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AdoptionEntity } from './adoption.entity';
+import { CatEntity } from '../cats/entities/cat.entity';
 
 @ApiTags('adoption')
 @Controller('adoption')
@@ -12,7 +13,7 @@ export class AdoptionController {
   @ApiResponse({
     status: 201,
     description: 'The record has been successfully created.',
-    type: AdoptionEntity,
+    type: CatEntity,
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   @ApiBody({ type: CreateAdoptionDto })

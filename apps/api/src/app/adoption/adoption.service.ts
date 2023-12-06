@@ -8,12 +8,38 @@ import { CatEntity } from '../cats/entities/cat.entity';
 @Injectable()
 export class AdoptionService {
   constructor(
+    @InjectRepository(CatEntity)
+    private readonly catRepository: Repository<CatEntity>,
     @InjectRepository(AdoptionEntity)
-    private readonly adoptionRepository: Repository<AdoptionEntity>
+    private readonly adoptionRepository: Repository<AdoptionEntity>,
   ) {}
 
-  create(createAdoptionDto: CreateAdoptionDto) {
-    const adoption = this.adoptionRepository.create(createAdoptionDto);
-    return this.adoptionRepository.save(adoption);
+  async create(createAdoptionDto: CreateAdoptionDto) {
+    // 新增認養紀錄
+
+    let adoption;
+    try {
+      adoption = await this.adoptionRepository.save(createAdoptionDto);
+    } catch (error) {
+      console.log(error);
+    }
+
+    // 更新貓咪狀態
+
+    try {
+      // Toso remove
+      const abc = await this.catRepository.save({
+        id: createAdoptionDto.catId,
+        adoptionId: adoption.id,
+      });
+      console.log(abc);
+    } catch (error) {
+      console.log(error);
+    }
+
+    return this.catRepository.findOne({
+      relations: ['adoption'],
+      where: { id: createAdoptionDto.catId },
+    });
   }
 }

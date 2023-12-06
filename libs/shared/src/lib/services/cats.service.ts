@@ -18,8 +18,8 @@ import { catsControllerRemove } from '../fn/cats/cats-controller-remove';
 import { CatsControllerRemove$Params } from '../fn/cats/cats-controller-remove';
 import { catsControllerUpdate } from '../fn/cats/cats-controller-update';
 import { CatsControllerUpdate$Params } from '../fn/cats/cats-controller-update';
-import { pickaMachi } from '../fn/cats/picka-machi';
-import { PickaMachi$Params } from '../fn/cats/picka-machi';
+import { getAllCats } from '../fn/cats/get-all-cats';
+import { GetAllCats$Params } from '../fn/cats/get-all-cats';
 
 @Injectable({ providedIn: 'root' })
 export class CatsService extends BaseService {
@@ -27,27 +27,27 @@ export class CatsService extends BaseService {
     super(config, http);
   }
 
-  /** Path part for operation `pickaMachi()` */
-  static readonly PickaMachiPath = '/cats';
+  /** Path part for operation `getAllCats()` */
+  static readonly GetAllCatsPath = '/cats';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `pickaMachi()` instead.
+   * To access only the response body, use `getAllCats()` instead.
    *
    * This method doesn't expect any request body.
    */
-  pickaMachi$Response(params?: PickaMachi$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<CatEntity>>> {
-    return pickaMachi(this.http, this.rootUrl, params, context);
+  getAllCats$Response(params?: GetAllCats$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<CatEntity>>> {
+    return getAllCats(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `pickaMachi$Response()` instead.
+   * To access the full response (for headers, for example), `getAllCats$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  pickaMachi(params?: PickaMachi$Params, context?: HttpContext): Observable<Array<CatEntity>> {
-    return this.pickaMachi$Response(params, context).pipe(
+  getAllCats(params?: GetAllCats$Params, context?: HttpContext): Observable<Array<CatEntity>> {
+    return this.getAllCats$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<CatEntity>>): Array<CatEntity> => r.body)
     );
   }

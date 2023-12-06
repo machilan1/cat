@@ -7,17 +7,21 @@ import {
   runInInjectionContext,
 } from '@angular/core';
 import { CatDetailComponent } from '../ui/cat-detail.component';
-import { CatStateService } from '../../adoption/data-access/services/cat.service';
+import { CatStateService } from '../../adoption/data-access/services/cat-state.service';
 import { Result } from '@ngneat/query/lib/types';
-import { CatEntity } from '@cat/shared';
 import { QueryObserverResult } from '@ngneat/query';
 import { JsonPipe } from '@angular/common';
+import { CatWithAdoption } from '../../shared/data-access/models/cat-entity';
+import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 
 @Component({
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CatDetailComponent, JsonPipe],
+  imports: [CatDetailComponent, JsonPipe, HlmButtonDirective],
   template: `
+    <div class="h-16">
+      <button variant="link" hlmBtn>回首頁</button>
+    </div>
     <div class="h-screen flex justify-center ">
       @if (result(); as res) {
         @if (res.isLoading) {
@@ -27,7 +31,7 @@ import { JsonPipe } from '@angular/common';
           <cat-detail-card [cat]="res.data"></cat-detail-card>
         }
         @if (res.isError) {
-          <div>no found</div>
+          <div>not found</div>
         }
       }
     </div>
@@ -49,5 +53,5 @@ export class DetailComponent {
     return this.#catId;
   }
 
-  result!: Result<QueryObserverResult<CatEntity, Error>>['result'];
+  result!: Result<QueryObserverResult<CatWithAdoption, Error>>['result'];
 }

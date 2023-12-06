@@ -1,5 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, PrimaryGeneratedColumn, OneToOne } from 'typeorm';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
 import { AdoptionEntity } from '../../adoption/adoption.entity';
 
 @Entity()
@@ -28,6 +34,10 @@ export class CatEntity {
   @Column('json', { nullable: true })
   avatar: string[];
 
-  @OneToOne(() => AdoptionEntity, (adoption) => adoption.cat)
+  // Todo find a way to anotate this in swagger
+  @Column({ nullable: true ,select:false})
+  adoptionId: number;
+  @OneToOne(() => AdoptionEntity)
+  @JoinColumn()
   adoption: AdoptionEntity;
 }

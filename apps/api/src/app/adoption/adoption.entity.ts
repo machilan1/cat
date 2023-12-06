@@ -3,10 +3,7 @@ import {
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  OneToOne,
-  JoinColumn,
 } from 'typeorm';
-import { CatEntity } from '../cats/entities/cat.entity';
 import { ApiProperty } from '@nestjs/swagger';
 
 @Entity()
@@ -30,14 +27,6 @@ export class AdoptionEntity {
   @ApiProperty({ type: String, name: 'adoptor_email' })
   @Column()
   adoptorEmail: string;
-
-  @Column({ nullable: true, name: 'cat_id' })
-  catId: number;
-  @OneToOne(() => CatEntity)
-  @JoinColumn({
-    name: 'cat_id',
-  })
-  cat: CatEntity;
 
   @ApiProperty({ type: Date })
   @CreateDateColumn()

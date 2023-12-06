@@ -3,7 +3,6 @@ export { BaseService } from './base-service';
 export { RequestBuilder } from './request-builder';
 export { StrictHttpResponse } from './strict-http-response';
 export { ApiModule } from './api.module';
-export { AdoptionEntity } from './models/adoption-entity';
 export { CatEntity } from './models/cat-entity';
 export { CreateAdoptionDto } from './models/create-adoption-dto';
 export { CreateCatDto } from './models/create-cat-dto';

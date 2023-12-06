@@ -8,18 +8,12 @@ import { RequestBuilder } from '../../request-builder';
 
 import { CatEntity } from '../../models/cat-entity';
 
-export interface CatsControllerFindOne$Params {
-
-/**
- * The ID of the task
- */
-  id: string;
+export interface GetAllCats$Params {
 }
 
-export function catsControllerFindOne(http: HttpClient, rootUrl: string, params: CatsControllerFindOne$Params, context?: HttpContext): Observable<StrictHttpResponse<CatEntity>> {
-  const rb = new RequestBuilder(rootUrl, catsControllerFindOne.PATH, 'get');
+export function getAllCats(http: HttpClient, rootUrl: string, params?: GetAllCats$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<CatEntity>>> {
+  const rb = new RequestBuilder(rootUrl, getAllCats.PATH, 'get');
   if (params) {
-    rb.path('id', params.id, {});
   }
 
   return http.request(
@@ -27,9 +21,9 @@ export function catsControllerFindOne(http: HttpClient, rootUrl: string, params:
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<CatEntity>;
+      return r as StrictHttpResponse<Array<CatEntity>>;
     })
   );
 }
 
-catsControllerFindOne.PATH = '/cats/{id}';
+getAllCats.PATH = '/cats';

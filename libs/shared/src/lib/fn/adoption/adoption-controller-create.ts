@@ -6,14 +6,14 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { AdoptionEntity } from '../../models/adoption-entity';
+import { CatEntity } from '../../models/cat-entity';
 import { CreateAdoptionDto } from '../../models/create-adoption-dto';
 
 export interface AdoptionControllerCreate$Params {
       body: CreateAdoptionDto
 }
 
-export function adoptionControllerCreate(http: HttpClient, rootUrl: string, params: AdoptionControllerCreate$Params, context?: HttpContext): Observable<StrictHttpResponse<AdoptionEntity>> {
+export function adoptionControllerCreate(http: HttpClient, rootUrl: string, params: AdoptionControllerCreate$Params, context?: HttpContext): Observable<StrictHttpResponse<CatEntity>> {
   const rb = new RequestBuilder(rootUrl, adoptionControllerCreate.PATH, 'post');
   if (params) {
     rb.body(params.body, 'application/json');
@@ -24,7 +24,7 @@ export function adoptionControllerCreate(http: HttpClient, rootUrl: string, para
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<AdoptionEntity>;
+      return r as StrictHttpResponse<CatEntity>;
     })
   );
 }

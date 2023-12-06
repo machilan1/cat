@@ -176,7 +176,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AdoptionEntity"
+                  "$ref": "#/components/schemas/CatEntity"
                 }
               }
             }
@@ -318,38 +318,6 @@
           "adoptorPhone",
           "adoptorEmail",
           "catId"
-        ]
-      },
-      "AdoptionEntity": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "adoptorName": {
-            "type": "string"
-          },
-          "adoptorLocation": {
-            "type": "string"
-          },
-          "adoptorPhone": {
-            "type": "string"
-          },
-          "adoptor_email": {
-            "type": "string"
-          },
-          "createTime": {
-            "format": "date-time",
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "adoptorName",
-          "adoptorLocation",
-          "adoptorPhone",
-          "adoptor_email",
-          "createTime"
         ]
       }
     }

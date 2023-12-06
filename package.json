@@ -29,6 +29,7 @@
     "@nestjs/swagger": "^7.1.16",
     "@nestjs/typeorm": "^10.0.1",
     "@ng-icons/core": "^26.2.0",
+    "@ng-icons/radix-icons": "^26.2.1",
     "@ngneat/query": "^2.0.0-beta.8",
     "@ngneat/query-devtools": "^2.0.0-beta.0",
     "@nx/angular": "17.1.3",

@@ -16,5 +16,8 @@ import { MOCK_IMAGE_URL } from '../../data-access/constants/mock-data';
   selector: `cat-image`,
 })
 export class ImageComponent {
-  image = MOCK_IMAGE_URL;
+  constructor() {
+    this.image = MOCK_IMAGE_URL;
+  }
+  image: string;
 }

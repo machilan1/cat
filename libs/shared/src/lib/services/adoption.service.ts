@@ -11,7 +11,7 @@ import { StrictHttpResponse } from '../strict-http-response';
 
 import { adoptionControllerCreate } from '../fn/adoption/adoption-controller-create';
 import { AdoptionControllerCreate$Params } from '../fn/adoption/adoption-controller-create';
-import { AdoptionEntity } from '../models/adoption-entity';
+import { CatEntity } from '../models/cat-entity';
 
 @Injectable({ providedIn: 'root' })
 export class AdoptionService extends BaseService {
@@ -28,7 +28,7 @@ export class AdoptionService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  adoptionControllerCreate$Response(params: AdoptionControllerCreate$Params, context?: HttpContext): Observable<StrictHttpResponse<AdoptionEntity>> {
+  adoptionControllerCreate$Response(params: AdoptionControllerCreate$Params, context?: HttpContext): Observable<StrictHttpResponse<CatEntity>> {
     return adoptionControllerCreate(this.http, this.rootUrl, params, context);
   }
 
@@ -38,9 +38,9 @@ export class AdoptionService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  adoptionControllerCreate(params: AdoptionControllerCreate$Params, context?: HttpContext): Observable<AdoptionEntity> {
+  adoptionControllerCreate(params: AdoptionControllerCreate$Params, context?: HttpContext): Observable<CatEntity> {
     return this.adoptionControllerCreate$Response(params, context).pipe(
-      map((r: StrictHttpResponse<AdoptionEntity>): AdoptionEntity => r.body)
+      map((r: StrictHttpResponse<CatEntity>): CatEntity => r.body)
     );
   }
 

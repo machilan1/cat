@@ -9,7 +9,7 @@ import { Repository } from 'typeorm';
 export class CatService {
   constructor(
     @InjectRepository(CatEntity)
-    private readonly catRepository: Repository<CatEntity>
+    private readonly catRepository: Repository<CatEntity>,
   ) {}
 
   findAll() {
@@ -26,6 +26,7 @@ export class CatService {
     if (!cat) {
       throw new Error(`Cat #${id} not found`);
     }
+    console.log(cat);
     return cat;
   }
 
